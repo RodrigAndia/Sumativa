@@ -1,6 +1,6 @@
 package com.everis.data.controllers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 import javax.validation.Valid;
@@ -31,7 +31,7 @@ public class VentaController {
 		System.out.println("Index");
 		//model.addAttribute(new Venta());
 		
-		ArrayList<Venta> listaVentas = vs.findAll();
+		List<Venta> listaVentas = vs.findAll();
 		model.addAttribute("lista_ventas", listaVentas);
 		
 		return "venta.jsp";

@@ -1,6 +1,6 @@
 package com.everis.data.services;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -23,7 +23,7 @@ public class ProductoService {
 		return pr.save(producto);
 	}
 
-	public ArrayList<Producto> findAll() {
+	public List<Producto> findAll() {
 		// TODO Auto-generated method stub
 		return pr.findAll();
 	}

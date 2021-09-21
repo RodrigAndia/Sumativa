@@ -11,14 +11,17 @@
 <body>
 	<div>
 		<form:form action="/producto/crear" method="post" modelAttribute="producto">
-			<form:label path="nombre">nombre:</form:label>
+			<form:label path="nombre">Nombre:</form:label>
 			<form:input type="text" path="nombre"/><br>
 			
-			<form:label path="precio">precio:</form:label>
+			<form:label path="precio">Precio:</form:label>
 			<form:input type="text" path="precio"/><br>
+
+			<form:label path="caracteristicas">Caracteristicas:</form:label>
+			<form:input type="text" path="caracteristicas"/><br>
 			
-			<form:label path="existencia">existencia:</form:label>
-			<form:input type="text" path="existencia"/><br>
+			<form:label path="existencias">Existencias:</form:label>
+			<form:input type="text" path="existencias"/><br>
 			
 			<input type="submit" value="Crear">
 		</form:form>
@@ -30,7 +33,8 @@
 					<th>#</th>
 					<th>Nombre</th>
 					<th>Precio</th>
-					<th>Existencia</th>
+					<th>Caracteristicas principales</th>
+					<th>Existencias</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -41,7 +45,8 @@
 							<td><c:out value="${producto.id}"></c:out></td>
 							<td><c:out value="${producto.nombre}"></c:out></td>
 							<td><c:out value="${producto.precio}"></c:out></td>
-							<td><c:out value="${producto.existencia}"></c:out></td>
+							<td><c:out value="${producto.caracteristicas}"></c:out></td>	
+							<td><c:out value="${producto.existencias}"></c:out></td>							
 							<td>
 								<a href="/producto/actualizar/${producto.id}">Editar</a>
 								<form action="/producto/eliminar" method="POST">

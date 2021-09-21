@@ -20,9 +20,11 @@
 			<form:label path="precio">precio:</form:label>
 			<form:input type="text" path="precio"/><br>
 			
-			<form:label path="existencia">existencia:</form:label>
-			<form:input type="text" path="existencia"/><br>
+			<form:label path="caracteristicas">Caracteristicas:</form:label>
+			<form:input type="text" path="caracteristicas"/><br>
 			
+			<form:label path="existencias">Existencias:</form:label>
+			<form:input type="text" path="existencias"/><br>
 			
 			<input type="submit" value="Modificar Producto">
 		</form:form>

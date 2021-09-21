@@ -22,8 +22,17 @@
 			
 			<form:label path="email">email:</form:label>
 			<form:input type="text" path="email"/><br>
+						
+			<br>
+			<label for="categorias">Seleccione categorias:</label>
+			<select name="categorias" multiple="true">
+				<c:forEach var="categoria" items="${lista_categorias}" >
+					<option value="<c:out value="${categoria.id}" />"> <c:out value="${categoria.nombre}" /> <c:out value="${empleado.apellido}" /></option>
+				</c:forEach>
+			</select>
+			<br>
 			
-			<input type="submit" value="Crear">
+			<input type="submit" class="btn btn-primary" value="Crear">
 		</form:form>
 		<br>
 		<h1>Usuarios</h1>

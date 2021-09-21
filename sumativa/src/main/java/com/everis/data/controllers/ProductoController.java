@@ -1,8 +1,9 @@
 package com.everis.data.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
-
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,10 @@ public class ProductoController {
 	private ProductoService ps;
 
 	@RequestMapping("")
-	public String index(/*Model model,*/ @ModelAttribute("producto") Producto producto, Model model)
+	public String index(@ModelAttribute("producto") Producto producto, Model model)
 	{
-		System.out.println("Index");
-		//model.addAttribute(new Producto());
-		
-		ArrayList<Producto> listaProductos = ps.findAll();
+		System.out.println("Index");		
+		List<Producto> listaProductos = ps.findAll();
 		model.addAttribute("lista_productos", listaProductos);
 		
 		return "producto.jsp";
@@ -40,7 +39,7 @@ public class ProductoController {
 	@RequestMapping(value="/crear", method=RequestMethod.POST)
 	public String crear(@Valid @ModelAttribute("producto") Producto producto)
 	{
-		System.out.println("Crear "+producto.getNombre()+" "+producto.getPrecio()+" "+producto.getExistencia());
+		System.out.println("Crear "+producto.getNombre()+" "+producto.getPrecio()+" "+producto.getCaracteristicas());
 		ps.crearProducto(producto);
 		return "redirect:/producto";
 	}
@@ -73,4 +72,37 @@ public class ProductoController {
 	{
 		return "redirect:/producto";
 	}
+	
+	@RequestMapping("listar")
+	public String listarProductos(/*Model model,*/ @ModelAttribute("producto") Producto producto, Model model)
+	{		
+		List<Producto> listaProductos = ps.findAll();
+		listaProductos.removeIf(n -> n.getExistencias()==0);
+		model.addAttribute("lista_productos", listaProductos);
+		
+		return "home.jsp";
+	}
+	
+	@RequestMapping("resumen")
+	public String resumen(@RequestParam(value="prod",required=false) String productos, Model model)
+	{
+		double costoTotal = 0;
+		if (productos == null)
+		{
+			model.addAttribute("error","¡No ha seleccionado ningun producto!");
+			return "resumen.jsp";
+		}
+		List<Producto> add_productos = new ArrayList<Producto>();
+		for (String producto_id : productos.split(",")) {
+			Producto producto = ps.buscarProducto(Long.parseLong(producto_id));
+			costoTotal+=producto.getPrecio();
+			producto.setExistencias(producto.getExistencias()-1);
+			this.modificar(producto);
+			add_productos.add(producto);
+		}
+		model.addAttribute("lista_productos",add_productos);
+		model.addAttribute("costo_total", costoTotal);
+		return "resumen.jsp";
+	}
+
 }
